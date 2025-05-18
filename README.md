@@ -1,8 +1,8 @@
-# 📝 Real Draft
+# 📝 Real Sync
 
-**Real Draft** is a blazing-fast, real-time collaboration platform where multiple users can seamlessly **edit**, **co-author**, and **work on documents together** — live.
+**Real Sync** is a blazing-fast, real-time collaboration platform where multiple users can seamlessly **edit**, **co-author**, and **work on documents together** — live.
 
-Built with scalability, responsiveness, and user experience in mind, Real Draft aims to elevate collaborative productivity to the next level.
+Built with scalability, responsiveness, and user experience in mind, Real Sync aims to elevate collaborative productivity to the next level.
 
 ---
 
@@ -30,10 +30,10 @@ Built with scalability, responsiveness, and user experience in mind, Real Draft 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/real-draft.git
+git clone https://github.com/yourusername/real-sync.git
 
 # Navigate into the project directory
-cd real-draft
+cd real-sync
 
 # Install dependencies
 npm install
