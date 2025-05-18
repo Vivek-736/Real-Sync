@@ -19,10 +19,10 @@ Built with scalability, responsiveness, and user experience in mind, Real Sync a
 
 - 🔄 Real-time document editing & synchronization  
 - 👥 Multi-user collaboration with presence indicators  
-- 💬 Commenting and inline feedback *(coming soon)*  
+- 💬 Commenting and inline feedback 
 - 🧠 Intelligent version tracking & history  
 - 📄 Sleek, minimal, distraction-free editor  
-- 🔐 End-to-end document security *(planned)*
+- 🔐 End-to-end document security
 
 ---
 
