@@ -1,13 +1,16 @@
-"use client"
-import { useState } from "react"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { CheckCircle, Users, Lock, Sparkles, Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { CheckCircle, Users, Lock, Sparkles, Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { useAuth } from "@clerk/nextjs";
 
 export default function HomePage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isSignedIn } = useAuth();
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -16,7 +19,7 @@ export default function HomePage() {
       y: 0,
       transition: { duration: 0.8 },
     },
-  }
+  };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -26,7 +29,7 @@ export default function HomePage() {
         staggerChildren: 0.2,
       },
     },
-  }
+  };
 
   return (
     <div className="min-h-screen px-6 bg-gradient-to-br from-blue-950 to-slate-900 text-white">
@@ -50,13 +53,22 @@ export default function HomePage() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="hidden md:flex items-center gap-8"
           >
-            <Link href="#features" className="hover:text-blue-300 transition-colors">
+            <Link
+              href="#features"
+              className="hover:text-blue-300 transition-colors"
+            >
               Features
             </Link>
-            <Link href="#how-it-works" className="hover:text-blue-300 transition-colors">
+            <Link
+              href="#how-it-works"
+              className="hover:text-blue-300 transition-colors"
+            >
               How It Works
             </Link>
-            <Link href="#testimonials" className="hover:text-blue-300 transition-colors">
+            <Link
+              href="#testimonials"
+              className="hover:text-blue-300 transition-colors"
+            >
               Testimonials
             </Link>
           </motion.nav>
@@ -67,10 +79,30 @@ export default function HomePage() {
             transition={{ duration: 0.5 }}
             className="hidden md:flex items-center gap-4"
           >
-            <Button variant="ghost" className="text-white hover:text-blue-300 hover:bg-blue-900/40">
-              Login
-            </Button>
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white">Sign Up</Button>
+            {!isSignedIn && (
+              <>
+                <Link href="/sign-in">
+                  <Button
+                    variant="ghost"
+                    className="text-white hover:text-blue-300 hover:bg-blue-900/40"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/sign-up">
+                  <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            )}
+            {isSignedIn && (
+              <Link href="/dashboard">
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+                  Dashboard
+                </Button>
+              </Link>
+            )}
           </motion.div>
 
           <motion.button
@@ -79,7 +111,11 @@ export default function HomePage() {
             className="md:hidden text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </motion.button>
         </div>
 
@@ -91,17 +127,49 @@ export default function HomePage() {
             className="md:hidden mt-4 py-4 bg-blue-900/40 backdrop-blur-sm rounded-lg"
           >
             <nav className="flex flex-col gap-4 px-4">
-              <Link href="#features" className="py-2 hover:text-blue-300 transition-colors">
+              <Link
+                href="#features"
+                className="py-2 hover:text-blue-300 transition-colors"
+              >
                 Features
               </Link>
-              <Link href="#how-it-works" className="py-2 hover:text-blue-300 transition-colors">
+              <Link
+                href="#how-it-works"
+                className="py-2 hover:text-blue-300 transition-colors"
+              >
                 How It Works
               </Link>
+              <Link
+                href="#testimonials"
+                className="hover:text-blue-300 transition-colors"
+              >
+                Testimonials
+              </Link>
               <div className="flex flex-col gap-2 pt-4 border-t border-blue-800">
-                <Button variant="ghost" className="justify-center text-white hover:text-blue-300 hover:bg-blue-900/40">
-                  LogIn
-                </Button>
-                <Button className="justify-center bg-blue-500 hover:bg-blue-600 text-white">Sign Up</Button>
+                {!isSignedIn && (
+                  <>
+                    <Link href="/sign-in">
+                      <Button
+                        variant="ghost"
+                        className="text-white text-center hover:text-blue-300 hover:bg-blue-900/40"
+                      >
+                        Login
+                      </Button>
+                    </Link>
+                    <Link href="/sign-up">
+                      <Button className="bg-blue-500 text-center hover:bg-blue-600 text-white">
+                        Sign Up
+                      </Button>
+                    </Link>
+                  </>
+                )}
+                {isSignedIn && (
+                  <Link href="/dashboard">
+                    <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+                      Dashboard
+                    </Button>
+                  </Link>
+                )}
               </div>
             </nav>
           </motion.div>
@@ -121,17 +189,23 @@ export default function HomePage() {
               Collaborate in real-time with your team
             </h1>
             <p className="text-lg text-blue-200/90 max-w-lg">
-              Edit documents together, see everyone&apos;s cursor, and manage permissions seamlessly. The future of
-              collaborative work is here.
+              Edit documents together, see everyone&apos;s cursor, and manage
+              permissions seamlessly. The future of collaborative work is here.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-6 text-lg">Get Started</Button>
-              <Button
-                variant="outline"
-                className="border-blue-400 text-blue-300 hover:bg-blue-900/40 px-8 py-6 text-lg"
-              >
-                Watch Demo
-              </Button>
+            <div className="flex flex-row gap-4 pt-4">
+              <Link href="/dashboard">
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white md:px-8 px-4 md:py-6 py-2 text-lg">
+                  Get Started
+                </Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button
+                  variant="outline"
+                  className="border-blue-400 text-blue-300 hover:bg-blue-900/40 md:px-8 px-4 md:py-6 py-2 text-lg"
+                >
+                  Watch Demo
+                </Button>
+              </Link>
             </div>
           </motion.div>
 
@@ -143,7 +217,13 @@ export default function HomePage() {
             className="relative h-[400px] rounded-xl overflow-hidden border border-blue-700/30 shadow-2xl shadow-blue-500/10"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-800/40 to-blue-900/40 flex items-center justify-center">
-              <Image src="/hero.jpg" alt="Hero image placeholder" width={500} height={500} className="object-cover w-full h-full" />
+              <Image
+                src="/hero.jpg"
+                alt="Hero image placeholder"
+                width={500}
+                height={500}
+                className="object-cover w-full h-full"
+              />
             </div>
           </motion.div>
         </div>
@@ -157,9 +237,12 @@ export default function HomePage() {
           variants={fadeIn}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Powerful collaboration features</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Powerful collaboration features
+          </h2>
           <p className="text-lg text-blue-200/90">
-            Everything you need to work together efficiently, no matter where your team is located.
+            Everything you need to work together efficiently, no matter where
+            your team is located.
           </p>
         </motion.div>
 
@@ -179,7 +262,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-xl font-bold mb-3">Real-time Cursors</h3>
             <p className="text-blue-200/90">
-              See where everyone is working in real-time with multi-colored cursors and selections.
+              See where everyone is working in real-time with multi-colored
+              cursors and selections.
             </p>
           </motion.div>
 
@@ -192,7 +276,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-xl font-bold mb-3">Live Editing</h3>
             <p className="text-blue-200/90">
-              Changes appear instantly for all collaborators, with no lag or conflicts.
+              Changes appear instantly for all collaborators, with no lag or
+              conflicts.
             </p>
           </motion.div>
 
@@ -205,7 +290,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-xl font-bold mb-3">Permission Management</h3>
             <p className="text-blue-200/90">
-              Control who can view, comment, or edit your documents with granular permissions.
+              Control who can view, comment, or edit your documents with
+              granular permissions.
             </p>
           </motion.div>
 
@@ -218,7 +304,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-xl font-bold mb-3">Version History</h3>
             <p className="text-blue-200/90">
-              Access previous versions of your document and restore them with a single click.
+              Access previous versions of your document and restore them with a
+              single click.
             </p>
           </motion.div>
 
@@ -231,7 +318,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-xl font-bold mb-3">Comments & Feedback</h3>
             <p className="text-blue-200/90">
-              Leave contextual comments and resolve discussions without leaving the document.
+              Leave contextual comments and resolve discussions without leaving
+              the document.
             </p>
           </motion.div>
 
@@ -244,13 +332,17 @@ export default function HomePage() {
             </div>
             <h3 className="text-xl font-bold mb-3">Smart Notifications</h3>
             <p className="text-blue-200/90">
-              Get notified about important changes and mentions without being overwhelmed.
+              Get notified about important changes and mentions without being
+              overwhelmed.
             </p>
           </motion.div>
         </motion.div>
       </section>
 
-      <section id="how-it-works" className="container mx-auto px-4 py-16 md:py-24">
+      <section
+        id="how-it-works"
+        className="container mx-auto px-4 py-16 md:py-24"
+      >
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -258,8 +350,12 @@ export default function HomePage() {
           variants={fadeIn}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">How RealSync works</h2>
-          <p className="text-lg text-blue-200/90">Simple, intuitive, and powerful. Get started in minutes.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            How RealSync works
+          </h2>
+          <p className="text-lg text-blue-200/90">
+            Simple, intuitive, and powerful. Get started in minutes.
+          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -294,7 +390,10 @@ export default function HomePage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">Create a document</h3>
-                <p className="text-blue-200/90">Start from scratch or use one of our templates to get going quickly.</p>
+                <p className="text-blue-200/90">
+                  Start from scratch or use one of our templates to get going
+                  quickly.
+                </p>
               </div>
             </motion.div>
 
@@ -305,7 +404,8 @@ export default function HomePage() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Invite your team</h3>
                 <p className="text-blue-200/90">
-                  Share a link or invite specific people with custom permission levels.
+                  Share a link or invite specific people with custom permission
+                  levels.
                 </p>
               </div>
             </motion.div>
@@ -315,9 +415,12 @@ export default function HomePage() {
                 <span className="font-bold">3</span>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">Collaborate in real-time</h3>
+                <h3 className="text-xl font-bold mb-2">
+                  Collaborate in real-time
+                </h3>
                 <p className="text-blue-200/90">
-                  Edit together, see everyone&apos;s changes instantly, and work seamlessly.
+                  Edit together, see everyone&apos;s changes instantly, and work
+                  seamlessly.
                 </p>
               </div>
             </motion.div>
@@ -329,7 +432,8 @@ export default function HomePage() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Track progress</h3>
                 <p className="text-blue-200/90">
-                  Monitor changes, resolve comments, and keep your project moving forward.
+                  Monitor changes, resolve comments, and keep your project
+                  moving forward.
                 </p>
               </div>
             </motion.div>
@@ -337,7 +441,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="testimonials" className="container mx-auto px-4 py-16 md:py-24">
+      <section
+        id="testimonials"
+        className="container mx-auto px-4 py-16 md:py-24"
+      >
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -345,8 +452,12 @@ export default function HomePage() {
           variants={fadeIn}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Loved by teams worldwide</h2>
-          <p className="text-lg text-blue-200/90">See what our users have to say about RealSync.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Loved by teams worldwide
+          </h2>
+          <p className="text-lg text-blue-200/90">
+            See what our users have to say about RealSync.
+          </p>
         </motion.div>
 
         <motion.div
@@ -366,12 +477,15 @@ export default function HomePage() {
               </div>
               <div>
                 <h4 className="font-bold">Jane Doe</h4>
-                <p className="text-sm text-blue-300">Product Manager, TechCorp</p>
+                <p className="text-sm text-blue-300">
+                  Product Manager, TechCorp
+                </p>
               </div>
             </div>
             <p className="text-blue-200/90">
-              &quot;RealSync has transformed how our team works together. The real-time editing and cursor tracking make
-              remote collaboration feel natural.&quot;
+              &quot;RealSync has transformed how our team works together. The
+              real-time editing and cursor tracking make remote collaboration
+              feel natural.&quot;
             </p>
           </motion.div>
 
@@ -385,12 +499,15 @@ export default function HomePage() {
               </div>
               <div>
                 <h4 className="font-bold">Mike Smith</h4>
-                <p className="text-sm text-blue-300">Designer, CreativeStudio</p>
+                <p className="text-sm text-blue-300">
+                  Designer, CreativeStudio
+                </p>
               </div>
             </div>
             <p className="text-blue-200/90">
-              &quot;The permission management is a game-changer. We can easily control who has access to what, making client
-              collaboration seamless.&quot;
+              &quot;The permission management is a game-changer. We can easily
+              control who has access to what, making client collaboration
+              seamless.&quot;
             </p>
           </motion.div>
 
@@ -408,8 +525,9 @@ export default function HomePage() {
               </div>
             </div>
             <p className="text-blue-200/90">
-              &quot;We&lsquo;ve tried many collaboration tools, but RealSync stands out with its intuitive interface and powerful
-              features. It&#39;s become essential to our workflow.&quot;
+              &quot;We&lsquo;ve tried many collaboration tools, but RealSync
+              stands out with its intuitive interface and powerful features.
+              It&#39;s become essential to our workflow.&quot;
             </p>
           </motion.div>
         </motion.div>
@@ -425,18 +543,27 @@ export default function HomePage() {
         >
           <p className="text-blue-300 mb-2">Made with 💗 by Vivek</p>
           <div className="flex gap-6 mt-4">
-            <Link href="#" className="text-blue-300 hover:text-blue-100 transition-colors">
+            <Link
+              href="#"
+              className="text-blue-300 hover:text-blue-100 transition-colors"
+            >
               Terms
             </Link>
-            <Link href="#" className="text-blue-300 hover:text-blue-100 transition-colors">
+            <Link
+              href="#"
+              className="text-blue-300 hover:text-blue-100 transition-colors"
+            >
               Privacy
             </Link>
-            <Link href="#" className="text-blue-300 hover:text-blue-100 transition-colors">
+            <Link
+              href="#"
+              className="text-blue-300 hover:text-blue-100 transition-colors"
+            >
               Contact
             </Link>
           </div>
         </motion.div>
       </footer>
     </div>
-  )
+  );
 }
