@@ -1,10 +1,11 @@
 import React from 'react'
+import CollaborativeRoom from '@/components/CollaborativeRoom'
 
 const DocumentIdPage = () => {
     return (
-        <div className='bg-gradient-to-br from-blue-950 to-slate-900 text-white'>
-            
-        </div>
+        <main className='bg-gradient-to-br min-h-screen from-blue-950 to-slate-900 text-white flex flex-col items-center'>
+            <CollaborativeRoom />
+        </main>
     )
 }
 
