@@ -4,6 +4,7 @@ import { Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import Provider from "./Provider";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -40,7 +41,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <Provider>
+              {children}
+            </Provider>
           </ThemeProvider>
         </body>
       </html>
