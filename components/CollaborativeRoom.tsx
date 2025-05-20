@@ -1,14 +1,39 @@
-'use client';
+"use client";
 import React from "react";
 import { RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
 import Header from "./Header";
 import { UserButton } from "@clerk/nextjs";
 import { Editor } from "./editor/Editor";
 import Loader from "./Loader";
+import ActiveCollaborators from "./ActiveCollaborators";
 
-const CollaborativeRoom = () => {
+declare type User = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  color: string;
+  userType?: UserType;
+};
+
+declare type RoomMetadata = {
+  creatorId: string;
+  email: string;
+  title: string;
+};
+
+declare type UserType = "creator" | "editor" | "viewer";
+
+declare type CollaborativeRoomProps = {
+  roomId: string;
+  roomMetadata: RoomMetadata;
+  users: User[];
+  currentUserType: UserType;
+};
+
+const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => {
   return (
-    <RoomProvider id="my-room">
+    <RoomProvider id={roomId}>
       <ClientSideSuspense fallback={<Loader />}>
         <div className="flex size-full max-h-screen flex-1 flex-col items-center overflow-hidden">
           <Header>
@@ -17,7 +42,10 @@ const CollaborativeRoom = () => {
                 Share
               </p>
             </div>
-            <UserButton />
+            <div className="flex w-full justify-end flex-1 gap-2 sm:gap-3">
+              <ActiveCollaborators />
+              <UserButton />
+            </div>
           </Header>
           <Editor />
         </div>
