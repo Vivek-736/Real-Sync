@@ -9,7 +9,11 @@ declare type SearchParamProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-const DocumentIdPage = async ({ params: { id }}: SearchParamProps ) => {
+const DocumentIdPage = async (props: SearchParamProps) => {
+    const params = await props.params;
+    
+    const id = params.id;
+
     const clerkUser = await currentUser();
     if(!clerkUser) redirect('/sign-in');
 
