@@ -3,6 +3,18 @@ import CollaborativeRoom from '@/components/CollaborativeRoom'
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import { getDocument } from '@/lib/actions/room.actions';
+import { getClerkUsers } from '@/lib/actions/user.actions';
+
+declare type UserType = "creator" | "editor" | "viewer";
+
+declare type User = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  color: string;
+  userType?: UserType;
+};
 
 declare type SearchParamProps = {
   params: { [key: string]: string };
@@ -24,13 +36,23 @@ const DocumentIdPage = async (props: SearchParamProps) => {
 
     if(!room) redirect('/dashboard');
 
-    // TODO: Access the permissions of the user to access the document
+    const userIds = Object.keys(room.usersAccesses);
+    const users = await getClerkUsers({ userIds });
+
+    const usersData = users.map((user: User) => ({
+        ...user,
+        userType: room.usersAccesses[user.email]?.includes('room:write') ? 'editor' : 'viewer'
+    }))
+
+    const currentUserType = room.usersAccesses[clerkUser.emailAddresses[0].emailAddress]?.includes('room:write') ? 'editor' : 'viewer';
 
     return (
         <main className='bg-gradient-to-br min-h-screen from-blue-950 to-slate-900 text-white flex flex-col items-center'>
             <CollaborativeRoom
                 roomId={id}
                 roomMetadata={room.metadata}
+                users={usersData}
+                currentUserType={currentUserType}
             />
         </main>
     )

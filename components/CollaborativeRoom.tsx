@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
 import Header from "./Header";
@@ -37,9 +38,10 @@ declare type CollaborativeRoomProps = {
 const CollaborativeRoom = ({
   roomId,
   roomMetadata,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  users,
+  currentUserType
 }: CollaborativeRoomProps) => {
-  const currentUserType = "editor";
-
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
@@ -133,7 +135,7 @@ const CollaborativeRoom = ({
               <UserButton />
             </div>
           </Header>
-          <Editor />
+          <Editor roomId={roomId} currentUserType={currentUserType} />
         </div>
       </ClientSideSuspense>
     </RoomProvider>
