@@ -30,7 +30,7 @@ Built with scalability, responsiveness, and user experience in mind, Real Sync a
 
 ```bash
 # Clone the repository
-git clone https://github.com/Vivek-736/real-sync.git
+git clone https://github.com/Vivek-736/Real-Sync.git
 
 # Navigate into the project directory
 cd real-sync
