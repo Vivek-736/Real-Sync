@@ -38,7 +38,7 @@ const DashboardPage = async () => {
           </div>
           <ul className="flex w-full max-w-[730px] flex-col gap-5">
             {roomDocuments.data.map(({ id, metadata, createdAt }: any) => (
-              <li key={id} className="flex items-center justify-between gap-4 rounded-lg backdrop-blur-2xl bg-white/10 bg-cover p-5 shadow-xl">
+              <li key={id} className="flex items-center justify-between gap-4 rounded-lg backdrop-blur-2xl bg-white/10 hover:bg-white/15 hover:transition-colors bg-cover p-5 shadow-xl">
                 <Link href={`/dashboard/documents/${id}`} className="flex flex-1 items-center gap-4">
                   <div className="hidden rounded-xl bg-slate-900 p-2 sm:block">
                     <FileText
