@@ -122,7 +122,7 @@ const CollaborativeRoom = ({
               )}
               {currentUserType === "editor" && !editing && (
                 <EditIcon
-                  className="h-6 w-6 cursor-pointer"
+                  className="h-5 w-5 cursor-pointer"
                   onClick={() => setEditing(true)}
                 />
               )}
