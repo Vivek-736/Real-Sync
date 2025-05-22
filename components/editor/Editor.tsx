@@ -19,8 +19,6 @@ import Comments from "../Comments";
 // or throw them as needed. If you don't throw them, Lexical will
 // try to recover gracefully without losing user data.
 
-declare type UserType = "creator" | "editor" | "viewer";
-
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }

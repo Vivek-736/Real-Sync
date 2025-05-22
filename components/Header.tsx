@@ -3,11 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-interface HeaderProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
 const Header = ({ children, className }: HeaderProps) => {
   return (
     <div className={cn("min-h-[92px] min-w-full flex-nowrap bg-dark-100 flex w-full items-center justify-between gap-2 px-6", className)}>

@@ -11,30 +11,6 @@ import { Input } from "./ui/input";
 import { EditIcon } from "lucide-react";
 import { updateDocument } from "@/lib/actions/room.actions";
 
-declare type User = {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  color: string;
-  userType?: UserType;
-};
-
-declare type RoomMetadata = {
-  creatorId: string;
-  email: string;
-  title: string;
-};
-
-declare type UserType = "creator" | "editor" | "viewer";
-
-declare type CollaborativeRoomProps = {
-  roomId: string;
-  roomMetadata: RoomMetadata;
-  users: User[];
-  currentUserType: UserType;
-};
-
 const CollaborativeRoom = ({
   roomId,
   roomMetadata,

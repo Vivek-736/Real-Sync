@@ -4,11 +4,6 @@ import { Button } from './ui/button'
 import { useRouter } from 'next/navigation';
 import { Plus } from 'lucide-react';
 
-declare type AddDocumentBtnProps = {
-  userId: string;
-  email: string;
-};
-
 const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
   const router = useRouter();
 

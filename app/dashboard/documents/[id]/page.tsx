@@ -5,22 +5,6 @@ import { redirect } from 'next/navigation';
 import { getDocument } from '@/lib/actions/room.actions';
 import { getClerkUsers } from '@/lib/actions/user.actions';
 
-declare type UserType = "creator" | "editor" | "viewer";
-
-declare type User = {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  color: string;
-  userType?: UserType;
-};
-
-declare type SearchParamProps = {
-  params: { [key: string]: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
 const DocumentIdPage = async (props: SearchParamProps) => {
     const params = await props.params;
     
