@@ -38,6 +38,9 @@ cd real-sync
 # Install dependencies
 npm install
 
+# If you encounter dependency issues, try:
+npm install --legacy-peer-deps
+
 # Run the development server
 npm run dev
 ```
