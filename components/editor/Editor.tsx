@@ -14,6 +14,7 @@ import Loader from "../Loader";
 import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
 import { useThreads } from "@liveblocks/react/suspense";
 import Comments from "../Comments";
+import { DeleteModal } from "../DeleteModal";
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -24,7 +25,6 @@ function Placeholder() {
 }
 
 export function Editor({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   roomId,
   currentUserType,
 }: {
@@ -50,7 +50,7 @@ export function Editor({
       <div className="editor-container size-full">
         <div className="flex z-50 custom-scrollbar w-screen overflow-auto border-y border-slate-800 pl-3 pr-4 shadow-sm min-h-full justify-between">
           <ToolbarPlugin />
-          {/* {currentUserType === 'editor' && <DeleteModal roomId={roomId} />} */}
+          {currentUserType === 'editor' && <DeleteModal roomId={roomId} />}
         </div>
 
         <div className="flex flex-col items-center justify-start custom-scrollbar h-[calc(100vh-140px)] gap-5 overflow-auto px-5 pt-5 lg:flex-row lg:items-start lg:justify-center  xl:gap-10 xl:pt-10">

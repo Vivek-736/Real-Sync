@@ -1,9 +1,9 @@
 "use server";
-
 import { nanoid } from "nanoid";
 import liveblocks from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { getAccessType, parseStringify } from "../utils";
+import { redirect } from "next/navigation";
 
 declare type CreateDocumentParams = {
   userId: string;
@@ -144,5 +144,15 @@ export const removeCollaborator = async ({
     return parseStringify(updatedRoom);
   } catch (error) {
     console.log(`Error removing collaborator: ${error}`);
+  }
+};
+
+export const deleteDocument = async (roomId: string) => {
+  try {
+    await liveblocks.deleteRoom(roomId);
+    revalidatePath("/dashboard");
+    redirect("/dashboard");
+  } catch (error) {
+    console.log(`Error happened while deleting a room: ${error}`);
   }
 };

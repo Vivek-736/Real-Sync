@@ -8,7 +8,7 @@ import AddDocumentBtn from "@/components/AddDocumentBtn";
 import { getDocuments } from "@/lib/actions/room.actions";
 import Link from "next/link";
 import { dateConverter } from "@/lib/utils";
-
+import { DeleteModal } from "@/components/DeleteModal";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const DashboardPage = async () => {
@@ -57,7 +57,7 @@ const DashboardPage = async () => {
                     </p>
                   </div>
                 </Link>
-                {/* {TODO}: Add a delete button */}
+                <DeleteModal roomId={id} />
               </li>
             ))}
           </ul>
