@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import { RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
 import Header from "./Header";
@@ -10,11 +9,11 @@ import ActiveCollaborators from "./ActiveCollaborators";
 import { Input } from "./ui/input";
 import { EditIcon } from "lucide-react";
 import { updateDocument } from "@/lib/actions/room.actions";
+import ShareModal from "./ShareModal";
 
 const CollaborativeRoom = ({
   roomId,
   roomMetadata,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   users,
   currentUserType
 }: CollaborativeRoomProps) => {
@@ -108,6 +107,14 @@ const CollaborativeRoom = ({
             </div>
             <div className="flex w-full justify-end flex-1 gap-2 sm:gap-3">
               <ActiveCollaborators />
+
+              <ShareModal
+                roomId={roomId}
+                collaborators={users}
+                creatorId={roomMetadata.creatorId}
+                currentUserType={currentUserType}
+              />
+
               <UserButton />
             </div>
           </Header>
