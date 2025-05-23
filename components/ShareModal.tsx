@@ -22,7 +22,6 @@ const ShareModal = ({
   roomId,
   collaborators,
   creatorId,
-  currentUserType,
 }: ShareDocumentDialogProps) => {
   const user = useSelf();
 
