@@ -20,7 +20,7 @@ const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
   return (
     <Button type="submit" onClick={addDocumentHandler} className="bg-gradient-to-t from-blue-500 to-blue-400 flex gap-2 shadow-md">
       <Plus className='h-24 w-24 font-bold' />
-      <p className="block">Create a document</p>
+      <p className="sm:block hidden">Create a document</p>
     </Button>
   )
 }

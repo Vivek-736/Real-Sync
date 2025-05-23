@@ -48,7 +48,7 @@ export function Editor({
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container size-full">
-        <div className="flex z-50 custom-scrollbar w-screen overflow-auto border-y border-slate-800 pl-3 pr-4 shadow-sm min-h-full justify-between">
+        <div className="flex z-50 custom-scrollbar bg-[#09111f] w-screen overflow-auto border-y border-slate-800 pl-3 pr-4 shadow-sm min-h-full justify-between">
           <ToolbarPlugin />
           {currentUserType === 'editor' && <DeleteModal roomId={roomId} />}
         </div>

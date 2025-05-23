@@ -1,7 +1,7 @@
 import React from "react";
 import { UserButton } from "@clerk/nextjs";
 import Header from "@/components/Header";
-import { Bell, FileText } from "lucide-react";
+import { FileText } from "lucide-react";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import AddDocumentBtn from "@/components/AddDocumentBtn";
@@ -9,6 +9,8 @@ import { getDocuments } from "@/lib/actions/room.actions";
 import Link from "next/link";
 import { dateConverter } from "@/lib/utils";
 import { DeleteModal } from "@/components/DeleteModal";
+import Notifications from "@/components/Notifications";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const DashboardPage = async () => {
@@ -21,7 +23,7 @@ const DashboardPage = async () => {
     <main className="flex items-center min-h-screen bg-gradient-to-br from-blue-950 to-slate-900 text-white relative w-full flex-col gap-5 sm:gap-10">
       <Header className="sticky left-0 top-0">
         <div className="flex items-center gap-4 lg:gap-8">
-          <Bell className="h-6 w-6 cursor-pointer hover:text-slate-200" />
+          <Notifications />
           <UserButton />
         </div>
       </Header>
