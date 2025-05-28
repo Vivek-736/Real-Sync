@@ -27,6 +27,17 @@ export default function RootLayout({
           colorPrimary: "#3371FF",
           colorBackground: "#000000",
         },
+        layout: {
+          unsafe_disableDevelopmentModeWarnings: true,
+        },
+        elements: {
+          socialButtonsProvider: {
+            "&[data-provider='google']": {
+              border: "2px solid white",
+              borderRadius: "4px",
+            },
+          },
+        },
       }}
     >
       <html
@@ -41,9 +52,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Provider>
-              {children}
-            </Provider>
+            <Provider>{children}</Provider>
           </ThemeProvider>
         </body>
       </html>
